@@ -75,24 +75,37 @@
         />
       </svg>
     </div>
+    <button id="downloadImage">Baixar Imagem</button>
     <div class="controls">
       <input type="color" id="colorPicker1" value="#4EA8DE" />
       <input type="color" id="colorPicker2" value="#5E60CE" />
     </div>
     <button id="applyColors">Aplicar Cores</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script>
       document.getElementById("applyColors").addEventListener("click", () => {
         const color1 = document.getElementById("colorPicker1").value;
         const color2 = document.getElementById("colorPicker2").value;
 
         const paths = document.querySelectorAll("#mySVG path");
-        paths[0].setAttribute("fill", color1); // Muda a cor do path
-        paths[1].setAttribute("fill", color1); // Muda a cor do path
-        paths[2].setAttribute("fill", color1); // Muda a cor do path
-        paths[3].setAttribute("fill", color2); // Muda a cor do path
-        paths[4].setAttribute("fill", color2); // Muda a cor do path
-        paths[5].setAttribute("fill", color2); // Muda a cor do path
-        paths[6].setAttribute("fill", color2); // Muda a cor do path
+        paths[0].setAttribute("fill", color1);
+        paths[1].setAttribute("fill", color1);
+        paths[2].setAttribute("fill", color1);
+        paths[3].setAttribute("fill", color2);
+        paths[4].setAttribute("fill", color2);
+        paths[5].setAttribute("fill", color2);
+        paths[6].setAttribute("fill", color2);
+      });
+
+      document.getElementById("downloadImage").addEventListener("click", () => {
+        html2canvas(document.getElementById("svgContainer"), {
+          useCORS: true,
+        }).then((canvas) => {
+          const link = document.createElement("a");
+          link.href = canvas.toDataURL("image/png");
+          link.download = "imagem.png";
+          link.click();
+        });
       });
     </script>
   </body>
