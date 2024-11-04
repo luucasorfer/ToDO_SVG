@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ToDO SVG Color</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <style>
     body {
@@ -13,15 +18,19 @@
       margin-top: 50px;
       font-family: Arial, sans-serif;
     }
-
-    .controls {
+    .controles {
       margin-top: 20px;
     }
-
-    button {
+    .aplicarCores {
       width: 105px;
       height: 30px;
       margin-top: 10px;
+    }
+    .download {
+      position: absolute;
+      background: aliceblue;
+      border: none;
+      cursor: pointer;
     }
   </style>
   <body>
@@ -74,14 +83,16 @@
           fill="#5E60CE"
         />
       </svg>
+      <button class="download" id="downloadImage">
+        <i class="fa fa-download"></i> Download PNG
+      </button>
     </div>
-    <button id="downloadImage">Baixar Imagem</button>
-    <div class="controls">
+    <div class="controles">
       <input type="color" id="colorPicker1" value="#4EA8DE" />
       <input type="color" id="colorPicker2" value="#5E60CE" />
     </div>
-    <button id="applyColors">Aplicar Cores</button>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <button class="aplicarCores" id="applyColors">Aplicar Cores</button>
+
     <script>
       document.getElementById("applyColors").addEventListener("click", () => {
         const color1 = document.getElementById("colorPicker1").value;
@@ -98,12 +109,10 @@
       });
 
       document.getElementById("downloadImage").addEventListener("click", () => {
-        html2canvas(document.getElementById("svgContainer"), {
-          useCORS: true,
-        }).then((canvas) => {
+        html2canvas(document.querySelector("#svgContainer")).then((canvas) => {
           const link = document.createElement("a");
-          link.href = canvas.toDataURL("image/png");
           link.download = "imagem.png";
+          link.href = canvas.toDataURL("image/png");
           link.click();
         });
       });
