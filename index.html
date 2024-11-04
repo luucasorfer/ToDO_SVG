@@ -18,6 +18,9 @@
       margin-top: 50px;
       font-family: Arial, sans-serif;
     }
+    #svgContainer {
+      background-color: transparent;
+    }
     .controles {
       margin-top: 20px;
     }
@@ -109,7 +112,9 @@
       });
 
       document.getElementById("downloadImage").addEventListener("click", () => {
-        html2canvas(document.querySelector("#svgContainer")).then((canvas) => {
+        html2canvas(document.querySelector("#svgContainer"), {
+          backgroundColor: null,
+        }).then((canvas) => {
           const link = document.createElement("a");
           link.download = "imagem.png";
           link.href = canvas.toDataURL("image/png");
